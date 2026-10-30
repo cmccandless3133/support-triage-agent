@@ -45,7 +45,7 @@ class GroundednessJudge:
         ids = [c for c in result.citations if c in self.kb] or result.retrieved[:2]
         arts = "\n\n".join(f"[{i}] {self.kb[i].title}\n{self.kb[i].body}" for i in ids)
         resp = self.client.messages.create(
-            model=self.model, max_tokens=512, temperature=0, system=RUBRIC,
+            model=self.model, max_tokens=512, system=RUBRIC,
             tools=[GRADE_TOOL], tool_choice={"type": "tool", "name": "grade"},
             messages=[{"role": "user", "content": f"ARTICLES:\n{arts}\n\nREPLY:\n{result.reply_draft}"}],
         )
