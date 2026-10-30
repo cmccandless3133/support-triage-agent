@@ -56,7 +56,6 @@ class ClaudeAgent(BaseAgent):
                 resp = self.client.messages.create(
                     model=self.model,
                     max_tokens=1024,
-                    temperature=0,
                     system=SYSTEM_PROMPT,
                     tools=[TRIAGE_TOOL],
                     tool_choice={"type": "tool", "name": "submit_triage"},
