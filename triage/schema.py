@@ -39,6 +39,7 @@ class TriageResult:
 
     @classmethod
     def failed(cls, error: str, retrieved: list[str] | None = None) -> "TriageResult":
-        # A failed call is scored as a wrong answer, never silently skipped.
-        return cls(queue="unknown", escalate=False, escalation_reason=None, reply_draft="",
+        # Fail closed: a failed call goes to a human, never auto-handled.
+        # The scorers still count it as wrong (an error earns no credit).
+        return cls(queue="unknown", escalate=True, escalation_reason="agent_error", reply_draft="",
                    citations=[], confidence=0.0, retrieved=retrieved or [], error=error)
