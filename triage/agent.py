@@ -55,10 +55,10 @@ class ClaudeAgent(BaseAgent):
             try:
                 resp = self.client.messages.create(
                     model=self.model,
-                    max_tokens=1024,
+                    max_tokens=4096,
                     system=SYSTEM_PROMPT,
                     tools=[TRIAGE_TOOL],
-                    tool_choice={"type": "tool", "name": "submit_triage"},
+                    tool_choice={"type": "auto"},
                     messages=[{"role": "user", "content": build_user_message(ticket, articles)}],
                 )
                 block = next(b for b in resp.content if b.type == "tool_use")
